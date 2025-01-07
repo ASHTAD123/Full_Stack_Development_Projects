@@ -1,74 +1,77 @@
-import React, { useEffect, useState  } from 'react';
-import { listDetails } from '../services/myService'
-
-
+import React, { useEffect, useState } from "react";
+import { listDetails } from "../services/myService";
 
 const listMyDetails = () => {
-  
+ 
+  const [personalDetails, setPersonalDetails] = useState(['']);
 
-    const [details1,setDetails] = useState(['']) 
+  useEffect(() => {
+    listDetails()
+      .then((response) => {
+        console.log(response.data)
+        setPersonalDetails(response.data);
+      })
+      .catch((Err) => {
+        console.error(Err);
+      });
+  }, []);
 
-
-    useEffect( ()=>{
-      
-      listDetails().then( (response) =>{
-      
-        // if (response.data.key === 'propertyToIgnore') {
-        //   return undefined; // Exclude this property
-        // }
-
-         // setDetails(response.data)
-      
-          console.log(response);
-          
-          }).catch(Err =>{
-      
-          console.error(Err)
-        })
-    })
-
-  // ------- DUMMY ------ DATA --------
-  //     const dummyData = [
-  //     {
-  //       id: 1,
-  //       firstName: "Ashtad",
-  //       lastName: "Irani",
-  //       email: "ashtad@gmail.com",
-  //     },
-  //     {
-  //       id: 2,
-  //       firstName: "Kaushik",
-  //       lastName: "Khara",
-  //       email: "kaushik@gmail.com",
-  //     },
-  //   ];
   return (
     <div className="container">
-      <h2>My details</h2>
-      <table className='table'>
-        <thead >
+      <h2>Personal Details</h2>
+      <table className="table">
+        <thead>
           <tr>
-            <th> ID : </th>
-            <th> Age </th>
-            <th> Gender</th>
-            <th> Name </th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
           </tr>
         </thead>
         <tbody>
-                {
-                  
-                    // details1.map(details =>
-                        
-                    //     <tr key={details.userid}>
-                    //             <td>{details.age}</td>
-                    //             <td>{details.gender}</td>
-                    //             <td>{details.name}</td>
-                    //     </tr>
-                    // )
-                }
+          {
+          personalDetails.map(details => 
+            <tr key={details.userid}>
+              <td>{details.userid}</td>
+              <td>{details.name}</td>
+              <td>{details.age}</td>
+              <td>{details.gender}</td>
+            </tr>)
+        }
         </tbody>
       </table>
-      
+
+      {/* <div className="container">
+        <h2>Contact Details</h2>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Contact ID</th>
+              <th>User ID</th>
+              <th>Contact Name</th>
+              <th>Contact Number</th>
+              <th>Contact Email</th>
+              <th>Social Media Link</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {
+             personalDetails.map((details) =>
+              details.contactDetails.map((contact) => (
+                <tr key={contact.contactId}>
+                  <td>{contact.contactId}</td>
+                  <td>{contact.personalDetails}</td>
+                  <td>{contact.name}</td>
+                  <td>{contact.contactNumber}</td>
+                  <td>{contact.email}</td>
+                  <td>{contact.socialMediaLink}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div> */}
     </div>
   );
 };
