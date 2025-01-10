@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { listDetails } from "../services/myService";
 
 const listMyDetails = () => {
+ 
   const [personalDetails, setPersonalDetails] = useState([""]);
   const [contactDetails, setContactDetails] = useState([""]);
   const [careerDetails, setCareerDetails] = useState([""]);
@@ -19,7 +20,8 @@ const listMyDetails = () => {
   }, []);
 
   return (
-    <div className="container">
+  
+  <div className="container">
       <h2>Personal Details</h2>
       <table className="table">
         <thead>

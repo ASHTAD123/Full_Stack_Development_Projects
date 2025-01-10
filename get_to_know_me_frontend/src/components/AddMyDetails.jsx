@@ -1,37 +1,31 @@
-import React from "react";
-import { useState } from "react";
-import { addDetails } from "../services/myService";
+import React, { useState , useContext} from 'react';
 import { useNavigate } from "react-router-dom";
-import {REST_API_BASED_POST_URL} from '../services/myService'
-import axios from 'axios'
+import DetailsArrayContext from '../context/DetailsArrayContext'
 
-const AddMyDetails = () => {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
 
+const AddMyDetailsForm = () => {
+  
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const [gender, setGender] =  useState('');
+  const {setDetails} = useContext(DetailsArrayContext);
+  let details = []
   
   const navigator = useNavigate();
 
+ 
   async function saveDetails(e) {
     
-    console.log("SAVE DETAILS ()")
-   
+    console.log("Save Details in AddMyDetails ()")
     e.preventDefault();
-    const details = { name, age, gender };
-    console.log(details);
 
-    try {
-      console.log("TRY BLOCK")
-      
-      const response = await axios.post(REST_API_BASED_POST_URL, details, {
-        headers: {
-          'Authorization': 'Bearer your-token',
-          'Content-Type': 'application/json'
-        }
-      });
-       console.log("Response", response);
+    details = [name, age, gender ];
+    setDetails(details)
+    console.log(details);
     
+    try {
+        console.log("TRY BLOCK")
+        navigator("/addMyContactDetails");
       } catch (e) {
       console.log("CATCH BLOCK")
       console.error(e);
@@ -83,4 +77,5 @@ const AddMyDetails = () => {
   );
 };
 
-export default AddMyDetails;
+
+export default AddMyDetailsForm;

@@ -1,8 +1,9 @@
-import './App.css'
-import ListMyDetails from './components/listMyDetails'
-import AddMyDetails from './components/AddMyDetails'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import HeaderComponent from './components/HeaderComponent'
+import ListMyDetails from './components/listMyDetails'
+import AddMyDetails from './components/AddMyDetails'
+import AddMyContactDetail from './components/AddMyContactDetails'
+import AddMyCareerDetails from './components/AddMyCareerDetails'
 
 
 function App() {
@@ -12,10 +13,10 @@ function App() {
       <BrowserRouter>
       <HeaderComponent/>
       <Routes>
-        
-                {/* <Route path='/' element={ <ListMyDetails />}> </Route> */}
-                <Route path='/details' element={ <ListMyDetails/> } />
-                <Route path='/addMyDetails' element={ <AddMyDetails/> } />
+                <Route path='/details'            element={ <ListMyDetails/> } />
+                <Route path='/addMyDetails'       element={ <AddMyDetails/> } />
+                <Route path='/addMyContactDetails' element={ <AddMyContactDetail/> } />
+                <Route path='/addMyCareerDetails' element={ <AddMyCareerDetails/> } />
      </Routes>
       </BrowserRouter>
 
