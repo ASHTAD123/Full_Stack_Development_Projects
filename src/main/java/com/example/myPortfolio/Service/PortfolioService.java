@@ -1,5 +1,6 @@
 package com.example.myPortfolio.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,33 +33,70 @@ public class PortfolioService {
 		
 	}
 	
+//	for(ContactDetails contactDetails1: portfolioEntity.getContactDetails())
+//		contactDetails1.setPortfolioEntity(portfolioEntity);
+//	
+//	
+//	for(CareerDetails careerDetails: portfolioEntity.getCareerDetails()) 
+//		careerDetails.setPortfolioEntity(portfolioEntity);
+
+	
 	public PortfolioEntity addMyDetailsService(PortfolioEntity portfolioEntity) {
 		
-		
-		for(ContactDetails contactDetails1: portfolioEntity.getContactDetails())
-			contactDetails1.setPortfolioEntity(portfolioEntity);
-		
-		
-		for(CareerDetails careerDetails: portfolioEntity.getCareerDetails()) 
-			careerDetails.setPortfolioEntity(portfolioEntity);
 	
+		if(portfolioEntity.getContactDetails() !=null && portfolioEntity.getCareerDetails() !=null) {
+					
+			for(ContactDetails contactDetails1: portfolioEntity.getContactDetails()) 
+				contactDetails1.setPortfolioEntity(portfolioEntity);
+				
+			for(CareerDetails careerDetails: portfolioEntity.getCareerDetails()) 
+				careerDetails.setPortfolioEntity(portfolioEntity);
+			
+			 PortfolioEntity newPortfolioEntity = portfolioRepo.save(portfolioEntity);
+		}
+		else {					
+			
+			  throw new IllegalArgumentException("getContactDetails and getCareerDetails object cannot be null ");
+					
+		}
 		
-		
-//		if(portfolioEntity.getContactDetails() !=null && portfolioEntity.getCareerDetails() !=null) {
-//		
-//			
-//			for(ContactDetails contactDetails1: portfolioEntity.getContactDetails()) contactDetails1.setPortfolioEntity(portfolioEntity);
-//			
-//			
-//			for(CareerDetails careerDetails: portfolioEntity.getCareerDetails()) careerDetails.setPortfolioEntity(portfolioEntity);
-//			
-//		}
-//		 else throw new IllegalArgumentException("PortfolioEntity PortfolioEntity cannot be null ");
-		
-		
-		 PortfolioEntity newPortfolioEntity = portfolioRepo.save(portfolioEntity);
+			
+		return portfolioEntity;
+	}
 	
-		return newPortfolioEntity;
+	
+	public PortfolioEntity updateEmployeeService(int id,  PortfolioEntity portfolio) throws Exception {
+		
+		
+		PortfolioEntity savedPortfolioEntity = portfolioRepo.findById(id).get();
+		
+		if(savedPortfolioEntity == null){
+            throw new Exception("User Not Found");
+        }
+		else {
+		
+			savedPortfolioEntity.setName(portfolio.getName());
+			savedPortfolioEntity.setAge(portfolio.getAge());
+			savedPortfolioEntity.setGender(portfolio.getGender());
+			savedPortfolioEntity.setContactDetails(portfolio.getContactDetails());
+			savedPortfolioEntity.setCareerDetails(portfolio.getCareerDetails());
+			
+			for(ContactDetails conDetails :portfolio.getContactDetails()) {
+				conDetails.setPortfolioEntity(savedPortfolioEntity);
+			}
+			
+			for(CareerDetails cDetails :portfolio.getCareerDetails()) {
+				cDetails.setPortfolioEntity(savedPortfolioEntity);
+			}
+			
+		portfolioRepo.save(savedPortfolioEntity);
+		
+
+        }
+		
+		return savedPortfolioEntity;
+		
+		
 	}
 	
 	public <T> void deleteDetailsAsPerEntity(PortfolioEntity entity) {

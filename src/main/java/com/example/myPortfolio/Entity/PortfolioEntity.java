@@ -12,29 +12,46 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 
 @Entity
 @Table(name = "personaldetails", schema = "public")
 public class PortfolioEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int userid;
-
+	 
 	private String age;
 
 	private String gender;
 
 	private String name;
 
-	@OneToMany(mappedBy = "portfolioEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "portfolioEntity", cascade = CascadeType.ALL)
 	private List<ContactDetails> contactDetails;
 
-	@OneToMany(mappedBy = "portfolioEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "portfolioEntity", cascade = CascadeType.ALL)
 	private List<CareerDetails> careerDetails;
 
 	public PortfolioEntity() {
 		super();
+	}
+
+	
+	public PortfolioEntity(Integer userid, String age, String gender, String name,
+			List<ContactDetails> contactDetails, List<CareerDetails> careerDetails) {
+		super();
+		this.userid = userid;
+		this.age = age;
+		this.gender = gender;
+		this.name = name;
+		this.contactDetails = contactDetails;
+		this.careerDetails = careerDetails;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
 	}
 
 	public int getUserid() {

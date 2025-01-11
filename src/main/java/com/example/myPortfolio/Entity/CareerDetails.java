@@ -13,15 +13,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 
 @Entity
 @Table(name="careeraspects" ,schema="public")
 public class CareerDetails {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id; 
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public int id; 
+
 	private String careeraim;
 	
 	private String passion;
@@ -41,8 +42,9 @@ public class CareerDetails {
 		super();
 	}
 
-	public CareerDetails(int id, String careeraim, String passion, String previouscompany, String qualification,
-			List<String> skills, PortfolioEntity portfolioEntity) {
+
+	public CareerDetails(Integer id,String careeraim, String passion, String previouscompany,
+			String qualification, List<String> skills, PortfolioEntity portfolioEntity) {
 		super();
 		this.id = id;
 		this.careeraim = careeraim;
@@ -51,6 +53,9 @@ public class CareerDetails {
 		this.qualification = qualification;
 		this.skills = skills;
 		this.portfolioEntity = portfolioEntity;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public int getId() {

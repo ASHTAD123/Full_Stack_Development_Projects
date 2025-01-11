@@ -1,6 +1,5 @@
 package com.example.myPortfolio.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,15 +11,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 
 @Entity
 @Table(name = "contactdetails", schema = "public")
 public class ContactDetails {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "\"contactId\"")
-	private int contactId;
+	public int contactId;
 
 	private String name;
 
@@ -35,9 +35,27 @@ public class ContactDetails {
 	@JsonIgnore
 	private PortfolioEntity portfolioEntity;
 
+	
 	public ContactDetails() {
 		super();
 	}
+
+	
+	public ContactDetails(Integer contactId,String name, String contactNumber, String email,
+			String socialMediaLink, PortfolioEntity portfolioEntity) {
+		super();
+		this.contactId = contactId;
+		this.name = name;
+		this.contactNumber = contactNumber;
+		this.email = email;
+		this.socialMediaLink = socialMediaLink;
+		this.portfolioEntity = portfolioEntity;
+	}
+	
+	public void setContactId(Integer contactId) {
+		this.contactId = contactId;
+	}
+
 
 	public int getContactId() {
 		return contactId;
