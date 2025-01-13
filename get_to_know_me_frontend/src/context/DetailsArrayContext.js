@@ -1,5 +1,5 @@
 import React from "react";
 
-const  DetailsArrayContext = React.createContext();
+const  DetailsContext = React.createContext();
 
-export default DetailsArrayContext;
+export default DetailsContext;

@@ -1,122 +1,100 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import DetailsArrayContext from "../context/DetailsArrayContext";
-// import { addDetails } from "../services/myService";
-import axios from 'axios'
-
+import DetailsContext from "../context/DetailsArrayContext";
+import axios from "axios";
 
 const AddMyCareerDetails = () => {
-  const [careeraim, setCareerAim] = useState();
-  const [passion, setPassion] = useState("");
-  const [previouscompany, setPreviousCompany] = useState("");
-  const [qualification, setQualification] = useState("");
-  const [skills, setSkills] = useState([""]);
 
-  const careerDetails = [
-    careeraim,
-    passion,
-    previouscompany,
-    qualification,
-    skills,
-  ];
+   const [careerDetails, setCareerDetails] = useState({});
+   const { details ,setDetails } = useContext(DetailsContext);
+   const navigator = useNavigate();
 
-  const navigator = useNavigate();
-  const { details } = useContext(DetailsArrayContext);
-
-  const handleSkillsChange = (e) => {
-    setSkills(e.target.value.split(","));
+ 
+   const handleInputChange = (e) => {
+   
+    const { name, value } = e.target;
+   
+    setCareerDetails({ ...careerDetails,[name]: value,});
+  
   };
 
-  async function saveDetails(e) {
-    console.log("SAVE DETAILS in Career Details ()");
-    e.preventDefault();
 
+  const handleSkillsChange = (e) => {
+  
+    const skillsArray = e.target.value.split(",");
+    setCareerDetails({...careerDetails, skills: skillsArray }) 
+  };
+
+  
+  function saveDetails(e) {
+  
+    console.log("Save Details in AddMyCareerDetails ()");
+  
     try {
-      console.log("Try block in career details");
-
-      if (!details) return <h1>Details not found</h1>;
-
       e.preventDefault();
-      details.push(careerDetails);
-      console.log(details);
-
-     // addDetails(careerDetails);
-     
-     axios.post("http://localhost:8080/portfolio/addMyDetails", details, {
-     
-      headers: {
-        'Content-Type': 'application/json',
-      }
-      
-    }).catch(function (error) {
-      if (error.response) {
-  
-        console.log("CATCH in SERVICE COMPONENT");
-        console.log(error.response.status);
-        console.log(error.toJSON());
-      
-      }else if (error.request) {
     
-        console.log(error.request);
-        console.log(error.toJSON());
-      } else {
-  
-       // console.log('Error', error.message);
-        console.log(error.toJSON());
-      }
-      console.log(error.config);
-     });
+      setDetails( {...details,"careerDetails": careerDetails } );
 
-    } catch (e) {
-      console.log("CATCH BLOCK");
-      console.error(e);
+      console.log(careerDetails);
+      
+    } catch (error) {
+      console.error("Error submitting details:", error);
     }
   }
 
   return (
-    <form>
+   
+   <form>
+      
+      <h1>Add Career Details</h1>
+
+      <h2>Career Details</h2>
       <div>
         <label>Career Aim:</label>
         <input
           type="text"
-          value={careeraim}
-          onChange={(e) => setCareerAim(e.target.value)}
+          name="careeraim"
+          value={careerDetails.careeraim}
+          onChange={handleInputChange}
         />
       </div>
       <div>
         <label>Passion:</label>
         <input
           type="text"
-          value={passion}
-          onChange={(e) => setPassion(e.target.value)}
+          name="passion"
+          value={careerDetails.passion}
+           onChange={handleInputChange}
         />
       </div>
       <div>
         <label>Previous Company:</label>
         <input
           type="text"
-          value={previouscompany}
-          onChange={(e) => setPreviousCompany(e.target.value)}
+          name="previouscompany"
+          value={careerDetails.previouscompany}
+          onChange={handleInputChange}
         />
       </div>
       <div>
         <label>Qualification:</label>
         <input
           type="text"
-          value={qualification}
-          onChange={(e) => setQualification(e.target.value)}
+          name="qualification"
+          value={careerDetails.qualification}
+         onChange={handleInputChange}
         />
       </div>
       <div>
-        <label>Skills (comma separated):</label>
+        <label>Skills (comma-separated):</label>
         <input
           type="text"
-          value={skills.join(",")}
-          onChange={handleSkillsChange}
+         // value={careerDetails.skills.join(",")}
+           onChange={handleSkillsChange}
         />
       </div>
 
-      <button onClick={saveDetails}>Submit</button>
+      <button type="submit" onClick={saveDetails}>Submit</button>
     </form>
   );
 };

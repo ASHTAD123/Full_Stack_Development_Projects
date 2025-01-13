@@ -1,33 +1,36 @@
-import React, { useState , useContext} from 'react';
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import DetailsArrayContext from '../context/DetailsArrayContext'
-
+import DetailsContext from "../context/DetailsArrayContext";
 
 const AddMyDetailsForm = () => {
-  
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] =  useState('');
-  const {setDetails} = useContext(DetailsArrayContext);
-  let details = []
+ 
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const { setDetails } = useContext(DetailsContext);
+ 
+  const personalDetails = {
+    name,
+    age,
+    gender
+  }
   
   const navigator = useNavigate();
 
- 
-  async function saveDetails(e) {
-    
-    console.log("Save Details in AddMyDetails ()")
+    function saveDetails(e) {
+   
+    console.log("Save Details in AddMyDetails ()");
     e.preventDefault();
 
-    details = [name, age, gender ];
-    setDetails(details)
-    console.log(details);
-    
     try {
-        console.log("TRY BLOCK")
-        navigator("/addMyContactDetails");
-      } catch (e) {
-      console.log("CATCH BLOCK")
+      console.log("TRY BLOCK");
+      
+      setDetails( personalDetails );
+      
+      navigator("/addMyContactDetails");
+
+    } catch (e) {
+      console.log("CATCH BLOCK");
       console.error(e);
     }
   }
@@ -76,6 +79,5 @@ const AddMyDetailsForm = () => {
     </div>
   );
 };
-
 
 export default AddMyDetailsForm;

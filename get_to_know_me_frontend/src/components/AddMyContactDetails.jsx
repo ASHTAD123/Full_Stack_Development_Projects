@@ -1,40 +1,41 @@
 import React, { useState , useContext} from 'react';
 import { useNavigate } from "react-router-dom";
-import DetailsArrayContext from "../context/DetailsArrayContext";
+import DetailsContext from "../context/DetailsArrayContext";
 
 const AddMyContactDetailsForm = () => {
   
-  const [contactDetails, setContactDetails] = useState({
-    name: "",
-    contactNumber: "",
-    email: "",
-    socialMediaLink: "",
-  });
-
+  const [contactDetails, setContactDetails] = useState({});
+  const { details ,setDetails } = useContext(DetailsContext);
   const navigator = useNavigate();
-  const { details } = useContext(DetailsArrayContext);
 
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setContactDetails({...contactDetails,[name]: value, });
   };
-
  
-  async function saveDetails(e) {
+
+
+  function saveDetails(e) {
    
     console.log(" Save Details() in add Contact details ()")
 
     try {
-      console.log("TRY BLOCK");
+   
+      e.preventDefault();
+      
+      console.log("Try block in contact details");
+      
       if (!details) return <h1>Details not found</h1>;
 
-      e.preventDefault();
-      details.push(contactDetails);
-      console.log(details);
-
+      setDetails( {...details,"contactDetails": contactDetails } );
+     
+      console.log(contactDetails)
+    
+      //  console.log(details)
+    
       navigator("/addMyCareerDetails");
-    } catch (e) {
+    } 
+     catch (e) {
       console.log("CATCH BLOCK");
       console.error(e);
     }
@@ -43,6 +44,7 @@ const AddMyContactDetailsForm = () => {
 
   return (
     <form>
+     
       <div>
         <label>Name:</label>
         <input
@@ -52,6 +54,7 @@ const AddMyContactDetailsForm = () => {
           onChange={handleChange}
         />
       </div>
+      
       <div>
         <label>Contact Number:</label>
         <input
@@ -61,6 +64,7 @@ const AddMyContactDetailsForm = () => {
           onChange={handleChange}
         />
       </div>
+    
       <div>
         <label>Email:</label>
         <input
@@ -70,6 +74,7 @@ const AddMyContactDetailsForm = () => {
           onChange={handleChange}
         />
       </div>
+     
       <div>
         <label>Social Media Link:</label>
         <input
