@@ -1,51 +1,42 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import DetailsContext from "../context/DetailsArrayContext";
-import axios from "axios";
+
 
 const AddMyCareerDetails = () => {
-
-   const [careerDetails, setCareerDetails] = useState({});
-   const { details ,setDetails } = useContext(DetailsContext);
-   const navigator = useNavigate();
-
- 
-   const handleInputChange = (e) => {
-   
-    const { name, value } = e.target;
-   
-    setCareerDetails({ ...careerDetails,[name]: value,});
   
-  };
+  const [careerDetails, setCareerDetails] = useState({});
+  const { details, setDetails } = useContext(DetailsContext);
+  const navigator = useNavigate();
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCareerDetails({ ...careerDetails, [name]: value });
+  };
 
   const handleSkillsChange = (e) => {
-  
     const skillsArray = e.target.value.split(",");
-    setCareerDetails({...careerDetails, skills: skillsArray }) 
+    setCareerDetails({ ...careerDetails, skills: skillsArray });
   };
 
-  
   function saveDetails(e) {
   
     console.log("Save Details in AddMyCareerDetails ()");
-  
-    try {
-      e.preventDefault();
-    
-      setDetails( {...details,"careerDetails": careerDetails } );
 
-      console.log(careerDetails);
-      
+    try {
+        e.preventDefault();
+        setDetails({...careerDetails});    
+        console.log("Details Context :");    
+        console.log({...details});
     } catch (error) {
       console.error("Error submitting details:", error);
     }
+  
   }
 
   return (
-   
-   <form>
-      
+   <div>
+    <form>
       <h1>Add Career Details</h1>
 
       <h2>Career Details</h2>
@@ -64,7 +55,7 @@ const AddMyCareerDetails = () => {
           type="text"
           name="passion"
           value={careerDetails.passion}
-           onChange={handleInputChange}
+          onChange={handleInputChange}
         />
       </div>
       <div>
@@ -82,20 +73,24 @@ const AddMyCareerDetails = () => {
           type="text"
           name="qualification"
           value={careerDetails.qualification}
-         onChange={handleInputChange}
+          onChange={handleInputChange}
         />
       </div>
       <div>
         <label>Skills (comma-separated):</label>
         <input
           type="text"
-         // value={careerDetails.skills.join(",")}
-           onChange={handleSkillsChange}
+          // value={careerDetails.skills.join(",")}
+          onChange={handleSkillsChange}
         />
       </div>
 
-      <button type="submit" onClick={saveDetails}>Submit</button>
+      <button type="submit" onClick={saveDetails}>
+        Submit
+      </button>
     </form>
+
+   </div> 
   );
 };
 

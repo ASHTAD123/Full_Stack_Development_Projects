@@ -17,7 +17,8 @@ const AddMyDetailsForm = () => {
   
   const navigator = useNavigate();
 
-    function saveDetails(e) {
+  
+  function saveDetails(e) {
    
     console.log("Save Details in AddMyDetails ()");
     e.preventDefault();
