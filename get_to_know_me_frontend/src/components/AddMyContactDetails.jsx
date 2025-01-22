@@ -5,7 +5,8 @@ import DetailsContext from "../context/DetailsArrayContext";
 const AddMyContactDetailsForm = () => {
   
   const [contactDetails, setContactDetails] = useState({});
-  const { details ,setDetails } = useContext(DetailsContext);
+  const {setDetails } = useContext(DetailsContext);
+  const {details} = useContext(DetailsContext);
   const navigator = useNavigate();
 
   const handleChange = (e) => {
@@ -16,23 +17,17 @@ const AddMyContactDetailsForm = () => {
 
 
   function saveDetails(e) {
-   
     console.log(" Save Details() in add Contact details ()")
-
-    try {
-   
+    try {  
       e.preventDefault();
-      
       console.log("Try block in contact details");
-      
       if (!details) return <h1>Details not found</h1>;
-
-      setDetails( {...details,"contactDetails": contactDetails } );
-     
-      console.log(contactDetails)
-    
+      console.log({details});
+      
+     // setDetails( {...details,"contactDetails": contactDetails } );
+    //  setDetails( {...details, contactDetails } );
+     // console.log(contactDetails)
       //  console.log(details)
-    
       navigator("/addMyCareerDetails");
     } 
      catch (e) {

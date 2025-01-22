@@ -7,29 +7,29 @@ export const listDetails = () =>axios.get(REST_API_BASED_URL);
 
 //export const addDetails = (details)=> axios.post(REST_API_BASED_POST_URL,details)
 
-// export const addDetails =  (details)=> axios.post(REST_API_BASED_POST_URL, details, {
+export const saveDetails =  (details)=> axios.post(REST_API_BASED_POST_URL, details, {
      
-//     headers: {
-//       'Authorization': 'Bearer your-token',
-//       'Content-Type': 'application/json',
-//     }
+    headers: {
+      'Authorization': 'Bearer your-token',
+      'Content-Type': 'application/json',
+    }
     
-//   }).catch(function (error) {
-//     if (error.response) {
+  }).catch(function (error) {
+    if (error.response) {
 
-//       console.log("CATCH in SERVICE COMPONENT");
-//       console.log(error.response.status);
-//       console.log(error.toJSON());
+      console.log("CATCH in SERVICE COMPONENT");
+      console.log(error.response.status);
+      console.log(error.toJSON());
     
-//     }else if (error.request) {
+    }else if (error.request) {
   
-//       console.log(error.request);
-//       console.log(error.toJSON());
-//     } else {
+      console.log(error.request);
+      console.log(error.toJSON());
+    } else {
 
-//      // console.log('Error', error.message);
-//       console.log(error.toJSON());
-//     }
-//     console.log(error.config);
-//    });
+     // console.log('Error', error.message);
+      console.log(error.toJSON());
+    }
+    console.log(error.config);
+   });
 

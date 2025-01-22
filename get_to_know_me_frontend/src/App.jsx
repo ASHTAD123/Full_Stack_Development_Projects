@@ -1,7 +1,7 @@
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import HeaderComponent from './components/HeaderComponent'
 import ListMyDetails from './components/listMyDetails'
-import AddMyDetails from './components/AddMyDetails'
+import AddMyDetailsForm from './components/AddMyDetails'
 import AddMyContactDetail from './components/AddMyContactDetails'
 import  AddMyCareerDetails  from './components/AddMyCareerDetails'
 
@@ -15,9 +15,9 @@ function App() {
                 {/* <Route path='/details'            element={ <ListMyDetails/> } />
          
               */}
-                <Route path='/addMyContactDetails' element={ <AddMyContactDetail/> } /> 
-                <Route path='/addMyDetails'       element={ <AddMyDetails/> } />
-                <Route path='/addMyCareerDetails' element={ <AddMyCareerDetails/> } />
+                {/* <Route path='/addMyContactDetails' element={ <AddMyContactDetail/> } />  */}
+                <Route path='/addMyDetails'       element={ <AddMyDetailsForm/> } />
+                {/* <Route path='/addMyCareerDetails' element={ <AddMyCareerDetails/> } /> */}
      </Routes>
       </BrowserRouter>
 

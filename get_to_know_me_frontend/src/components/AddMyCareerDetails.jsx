@@ -7,7 +7,7 @@ const AddMyCareerDetails = () => {
   
   const [careerDetails, setCareerDetails] = useState({});
   const { details, setDetails } = useContext(DetailsContext);
-  const navigator = useNavigate();
+//  const navigator = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,9 +25,13 @@ const AddMyCareerDetails = () => {
 
     try {
         e.preventDefault();
-        setDetails({...careerDetails});    
-        console.log("Details Context :");    
-        console.log({...details});
+        console.log("Career Details :");    
+        console.log(careerDetails);    
+        // setDetails({...careerDetails});    
+        //setDetails( {...contactDetails,"careerDetails": careerDetails } );
+      //  setDetails( {...details, careerDetails } );
+        // console.log("Details Context :");    
+        // console.log(details);
     } catch (error) {
       console.error("Error submitting details:", error);
     }
@@ -45,7 +49,7 @@ const AddMyCareerDetails = () => {
         <input
           type="text"
           name="careeraim"
-          value={careerDetails.careeraim}
+          value={careeraim}
           onChange={handleInputChange}
         />
       </div>
@@ -54,7 +58,7 @@ const AddMyCareerDetails = () => {
         <input
           type="text"
           name="passion"
-          value={careerDetails.passion}
+          value={passion}
           onChange={handleInputChange}
         />
       </div>
@@ -63,7 +67,7 @@ const AddMyCareerDetails = () => {
         <input
           type="text"
           name="previouscompany"
-          value={careerDetails.previouscompany}
+          value={previouscompany}
           onChange={handleInputChange}
         />
       </div>
@@ -72,7 +76,7 @@ const AddMyCareerDetails = () => {
         <input
           type="text"
           name="qualification"
-          value={careerDetails.qualification}
+          value={qualification}
           onChange={handleInputChange}
         />
       </div>
@@ -80,7 +84,8 @@ const AddMyCareerDetails = () => {
         <label>Skills (comma-separated):</label>
         <input
           type="text"
-          // value={careerDetails.skills.join(",")}
+          name="skills"
+           value={skills.join(",")}
           onChange={handleSkillsChange}
         />
       </div>
