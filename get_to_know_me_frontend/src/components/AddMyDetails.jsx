@@ -13,13 +13,24 @@ const AddMyDetailsForm = () => {
     
     const { name, value } = e.target;
    
-    setContactDetails((prevDetails) => ({...prevDetails, [name]: value,}));
-  };
+   // setContactDetails((prevDetails) => ({...prevDetails, [name]: value,}));
+
+   setContactDetails((prevDetails) => (
+    
+      [
+        {...prevDetails, [name]: value,}
+      ]
+    )
+  );
+  
+};
   
   const handleCareerDetailChange = (e) => {
     const { name, value } = e.target;
    
-    setCareerDetails((prevDetails) => ({...prevDetails, [name]: value,}));
+   // setCareerDetails((prevDetails) => ({...prevDetails, [name]: value,}));
+
+   setCareerDetails((prevDetails) => ([{...prevDetails, [name]: value,}]));
   
   };
 
@@ -27,7 +38,7 @@ const AddMyDetailsForm = () => {
     name,
     age,
     gender,
-    contactDetails,
+    contactDetails:[contactDetails],
     careerDetails,
   };
 
