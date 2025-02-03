@@ -1,56 +1,46 @@
-import React, { useState, useContext } from "react";
+import React, { useState} from "react";
 import { saveDetails } from "../services/myService";
 
 const AddMyDetailsForm = () => {
+  
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [contactDetails, setContactDetails] = useState([]);
+  const [careerDetails, setCareerDetails] = useState([]);
 
-    const [name, setName] = useState('');
-    const [age, setAge] = useState('');
-    const [gender, setGender] = useState('');
-    const [data,setData] = useState('');
-    const [contactDetails,setContactDetails] = useState([]);
-    const [careerDetails,setCareerDetails] = useState([]);
- 
-    const [contactName, setContactName] = useState('');
-    const [contactNumber, setContactNumber] = useState('');
-    const [email, setEmail] = useState('');
-    const [socialMediaLink, setSocialMediaLink] = useState('');    
-    const myData ={
-      name,
-      age,
-      gender,  
-      contactDetails,
-      careerDetails,
-    } 
+  const handleContactDetailChange = (e) => {
+    
+    const { name, value } = e.target;
+   
+    setContactDetails((prevDetails) => ({...prevDetails, [name]: value,}));
+  };
+  
+  const handleCareerDetailChange = (e) => {
+    const { name, value } = e.target;
+   
+    setCareerDetails((prevDetails) => ({...prevDetails, [name]: value,}));
+  
+  };
 
-    const newContact = {
-      name,
-      contactNumber,
-      email,
-      socialMediaLink,
-    };
-
-    const handleChange =(e)=>{
-      setData({...data,[e.target.name] : e.target.value})
-    }
-    const handleContactDetailChange =(e)=>{
-      setContactDetails((prevData)=>[...prevData,newContact])
-
-    }
-    const handleCareerDetailChange =(e)=>{
-      setCareerDetails({...setCareerDetails,[e.target.name] : e.target.value})
-    }
-
+  const myData = {
+    name,
+    age,
+    gender,
+    contactDetails,
+    careerDetails,
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     saveDetails(myData)
-    .then((res)=>{
-      console.log("Details Added Successfully");
-    }).catch((error)=>{
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
         console.log(error);
-      
-    });
+      });
   };
 
   return (
@@ -64,7 +54,7 @@ const AddMyDetailsForm = () => {
             placeholder="Your Name"
             name="name"
             value={name}
-            onChange={ (e) => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           ></input>
         </div>
 
@@ -97,7 +87,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="contactName"
-            value={data.contactName}
+           // value={data.contactName}
             onChange={handleContactDetailChange}
           />
         </div>
@@ -106,8 +96,8 @@ const AddMyDetailsForm = () => {
           <label>Contact Number:</label>
           <input
             type="text"
-            name="contactNumber"
-            value={data.contactNumber}
+            name="contactnumber"
+        //    value={data.contactNumber}
             onChange={handleContactDetailChange}
           />
         </div>
@@ -117,7 +107,7 @@ const AddMyDetailsForm = () => {
           <input
             type="email"
             name="email"
-            value={data.email}
+          //  value={data.email}
             onChange={handleContactDetailChange}
           />
         </div>
@@ -127,7 +117,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="socialMediaLink"
-            value={data.socialMediaLink}
+           // value={data.socialMediaLink}
             onChange={handleContactDetailChange}
           />
         </div>
@@ -140,7 +130,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="careeraim"
-            value={data.careeraim}
+          //  value={data.careeraim}
             onChange={handleCareerDetailChange}
           />
         </div>
@@ -149,8 +139,8 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="passion"
-            value={data.passion}
-            onChange={handleChange}
+           // value={data.passion}
+            onChange={handleCareerDetailChange}
           />
         </div>
         <div>
@@ -158,7 +148,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="previouscompany"
-            value={data.previouscompany}
+           // value={data.previouscompany}
             onChange={handleCareerDetailChange}
           />
         </div>
@@ -167,7 +157,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="qualification"
-            value={data.qualification}
+          //  value={data.qualification}
             onChange={handleCareerDetailChange}
           />
         </div>
@@ -176,7 +166,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="skills"
-            value={data.skills}
+          //  value={data.skills}
             onChange={handleCareerDetailChange}
           />
         </div>
