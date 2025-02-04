@@ -1,8 +1,7 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { saveDetails } from "../services/myService";
 
 const AddMyDetailsForm = () => {
-  
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
@@ -10,36 +9,35 @@ const AddMyDetailsForm = () => {
   const [careerDetails, setCareerDetails] = useState([]);
 
   const handleContactDetailChange = (e) => {
-    
     const { name, value } = e.target;
-   
-   // setContactDetails((prevDetails) => ({...prevDetails, [name]: value,}));
 
-   setContactDetails((prevDetails) => (
-    
-      [
-        {...prevDetails, [name]: value,}
-      ]
-    )
-  );
-  
-};
-  
+    // setContactDetails((prevDetails) => ({...prevDetails, [name]: value,}));
+
+  setContactDetails(
+    (prevDetails) =>
+       
+      (  { ...prevDetails, [name]: value })
+      
+      );
+  };
+
   const handleCareerDetailChange = (e) => {
     const { name, value } = e.target;
-   
-   // setCareerDetails((prevDetails) => ({...prevDetails, [name]: value,}));
 
-   setCareerDetails((prevDetails) => ([{...prevDetails, [name]: value,}]));
-  
+     setCareerDetails((prevDetails) =>
+        (
+          {...prevDetails, [name]: value}
+        )
+    );
+
   };
 
   const myData = {
     name,
     age,
     gender,
-    contactDetails:[contactDetails],
-    careerDetails,
+    contactDetails: [{ contactDetails }],
+    careerDetails: [{ careerDetails }],
   };
 
   const handleSubmit = (e) => {
@@ -98,7 +96,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="contactName"
-           // value={data.contactName}
+            // value={data.contactName}
             onChange={handleContactDetailChange}
           />
         </div>
@@ -108,7 +106,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="contactnumber"
-        //    value={data.contactNumber}
+            //    value={data.contactNumber}
             onChange={handleContactDetailChange}
           />
         </div>
@@ -118,7 +116,7 @@ const AddMyDetailsForm = () => {
           <input
             type="email"
             name="email"
-          //  value={data.email}
+            //  value={data.email}
             onChange={handleContactDetailChange}
           />
         </div>
@@ -128,7 +126,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="socialMediaLink"
-           // value={data.socialMediaLink}
+            // value={data.socialMediaLink}
             onChange={handleContactDetailChange}
           />
         </div>
@@ -141,7 +139,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="careeraim"
-          //  value={data.careeraim}
+            //  value={data.careeraim}
             onChange={handleCareerDetailChange}
           />
         </div>
@@ -150,7 +148,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="passion"
-           // value={data.passion}
+            // value={data.passion}
             onChange={handleCareerDetailChange}
           />
         </div>
@@ -159,7 +157,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="previouscompany"
-           // value={data.previouscompany}
+            // value={data.previouscompany}
             onChange={handleCareerDetailChange}
           />
         </div>
@@ -168,7 +166,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="qualification"
-          //  value={data.qualification}
+            //  value={data.qualification}
             onChange={handleCareerDetailChange}
           />
         </div>
@@ -177,7 +175,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="skills"
-          //  value={data.skills}
+            //  value={data.skills}
             onChange={handleCareerDetailChange}
           />
         </div>
