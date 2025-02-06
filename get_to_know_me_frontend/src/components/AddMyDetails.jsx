@@ -7,15 +7,11 @@ const AddMyDetailsForm = () => {
   const [gender, setGender] = useState("");
   const [contactDetails, setContactDetails] = useState([]);
   const [careerDetails, setCareerDetails] = useState([]);
-  const [skillsDetails, setSkillsDetails] = useState([]);
+  const [skills, setSkillsDetails] = useState([]);
 
   const handleContactDetailChange = (e) => {
     const { name, value } = e.target;
-
-    // setContactDetails((prevDetails) => ({...prevDetails, [name]: value,}));
-
     setContactDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
-    
   };
 
   const handleSkillsDetailChange = (e) => {
@@ -26,10 +22,7 @@ const AddMyDetailsForm = () => {
 
   const handleCareerDetailChange = (e) => {
     const { name, value } = e.target;
-
-   
-   setCareerDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
-    // setCareerDetails((prevDetails) => ({ ...prevDetails,[name]: value, skills:[skillsDetails]}));
+    setCareerDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
 
   const myData = {
@@ -37,7 +30,8 @@ const AddMyDetailsForm = () => {
     age,
     gender,
     contactDetails: [contactDetails],
-  careerDetails: [careerDetails],
+    // careerDetails: [careerDetails, { ...careerDetails, skills }],
+    careerDetails: [{ ...careerDetails, skills }],
   };
 
   const handleSubmit = (e) => {
@@ -176,7 +170,7 @@ const AddMyDetailsForm = () => {
           <input
             type="text"
             name="skills"
-            value={skillsDetails.join(", ") || ""}
+            value={skills.join(", ") || ""}
             onChange={handleSkillsDetailChange}
           />
         </div>
