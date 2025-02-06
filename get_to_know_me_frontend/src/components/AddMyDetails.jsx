@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { saveDetails } from "../services/myService";
 
 const AddMyDetailsForm = () => {
+ 
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
@@ -30,7 +31,6 @@ const AddMyDetailsForm = () => {
     age,
     gender,
     contactDetails: [contactDetails],
-    // careerDetails: [careerDetails, { ...careerDetails, skills }],
     careerDetails: [{ ...careerDetails, skills }],
   };
 

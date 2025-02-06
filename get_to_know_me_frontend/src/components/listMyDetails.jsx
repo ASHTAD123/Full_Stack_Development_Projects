@@ -2,17 +2,14 @@ import React, { useEffect, useState } from "react";
 import { listDetails } from "../services/myService";
 
 const listMyDetails = () => {
- 
-  const [personalDetails, setPersonalDetails] = useState([""]);
-  const [contactDetails, setContactDetails] = useState([""]);
-  const [careerDetails, setCareerDetails] = useState([""]);
+  const [details, setDetails] = useState([""]);
 
   useEffect(() => {
     listDetails()
       .then((response) => {
-        setPersonalDetails(response.data);
-        setContactDetails(response.data);
-        setCareerDetails(response.data);
+        setDetails(response.data);
+        setDetails(response.data);
+        setDetails(response.data);
       })
       .catch((Err) => {
         console.error(Err);
@@ -20,8 +17,7 @@ const listMyDetails = () => {
   }, []);
 
   return (
-  
-  <div className="container">
+    <div className="container">
       <h2>Personal Details</h2>
       <table className="table">
         <thead>
@@ -33,7 +29,7 @@ const listMyDetails = () => {
           </tr>
         </thead>
         <tbody>
-          {personalDetails.map((details) => (
+          {details.map((details) => (
             <tr key={details.userid}>
               <td>{details.userid}</td>
               <td>{details.name}</td>
@@ -57,18 +53,17 @@ const listMyDetails = () => {
             </tr>
           </thead>
           <tbody>
-          {
-          personalDetails.map((details, index) =>
-                details.contactDetails?.map((contact) => (
-                  <tr key={index}>
-                    <td>{contact.contactId}</td>
-                    <td>{contact.name}</td>
-                    <td>{contact.contactNumber}</td>
-                    <td>{contact.email}</td>
-                    <td>{contact.socialMediaLink}</td>
-                  </tr>
-                ))
-              )}
+            {details.map((details) =>
+              details.contactDetails?.map((contact, index) => (
+                <tr key={details.contactId}>
+                  <td>{contact.contactId}</td>
+                  <td>{contact.name}</td>
+                  <td>{contact.contactNumber}</td>
+                  <td>{contact.email}</td>
+                  <td>{contact.socialMediaLink}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
@@ -87,9 +82,9 @@ const listMyDetails = () => {
               </tr>
             </thead>
             <tbody>
-              {personalDetails.map((details, index) =>
+              {details.map((details, index) =>
                 details.careerDetails?.map((career) => (
-                  <tr key={index}>
+                  <tr key={details.id}>
                     <td>{career.careeraim}</td>
                     <td>{career.passion}</td>
                     <td>{career.previouscompany}</td>
