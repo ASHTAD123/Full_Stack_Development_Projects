@@ -47,7 +47,7 @@ public class PortfolioController {
 		
 	}
 
-	@PutMapping(value="/updateMyDetails/{id}")
+	@PutMapping("/updateMyDetails/{id}")
 	public ResponseEntity<PortfolioEntity> updateMyDetails(@PathVariable int id, @RequestBody PortfolioEntity portfolio){
 		
 		try {
@@ -60,6 +60,24 @@ public class PortfolioController {
 		
 	}
 	
+	@PutMapping("/updateContactDetails/{name}")
+	public  ResponseEntity<List<ContactDetails>> updateMyDetails(@PathVariable String name){
+		
+		System.out.println("Update my contact details");
+		List<ContactDetails> contactDetails= null;
+		
+		try {
+			contactDetails = portfolioService.updateContactDetails(name);
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
+		
+		return ResponseEntity.ok(contactDetails);
+		
+	}
 	@DeleteMapping("/deleteMyDetails")
 	public void removeDetails(PortfolioEntity entity){		
 		
