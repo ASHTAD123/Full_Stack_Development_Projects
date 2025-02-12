@@ -2,19 +2,20 @@ import React, { useEffect, useState } from "react";
 import { listDetails } from "../services/myService";
 
 const listMyDetails = () => {
+  
   const [details, setDetails] = useState([""]);
 
   useEffect(() => {
+    
     listDetails()
       .then((response) => {
         setDetails(response.data);
-        setDetails(response.data);
-        setDetails(response.data);
+    
       })
-      .catch((Err) => {
-        console.error(Err);
-      });
-  }, []);
+      .catch((Err) =>  console.error(Err));
+  },[]
+
+);
 
   return (
     <div className="container">
