@@ -39,7 +39,7 @@ public class PortfolioEntity {
 	}
 
 	
-	public PortfolioEntity(Integer userid, String age, String gender, String name,
+	public PortfolioEntity(int userid, String age, String gender, String name,
 			List<ContactDetails> contactDetails, List<CareerDetails> careerDetails) {
 		super();
 		this.userid = userid;
@@ -50,7 +50,7 @@ public class PortfolioEntity {
 		this.careerDetails = careerDetails;
 	}
 
-	public void setUserid(Integer userid) {
+	public void setUserid(int userid) {
 		this.userid = userid;
 	}
 
@@ -58,10 +58,7 @@ public class PortfolioEntity {
 		return userid;
 	}
 
-	public void setUserid(int userid) {
-		this.userid = userid;
-	}
-
+	
 	public String getAge() {
 		return age;
 	}

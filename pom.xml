@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -14,21 +15,26 @@
 	<name>getToKnowMe</name>
 	<description>My Portforlio</description>
 	<url/>
+	
 	<licenses>
 		<license/>
 	</licenses>
+	
 	<developers>
 		<developer/>
 	</developers>
+
 	<scm>
 		<connection/>
 		<developerConnection/>
 		<tag/>
 		<url/>
 	</scm>
+	
 	<properties>
 		<java.version>23</java.version>
 	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -50,38 +56,28 @@
 		</dependency>
 		
 		<dependency>
-  <groupId>org.apache.httpcomponents.client5</groupId>
-  <artifactId>httpclient5</artifactId>
-  <scope>test</scope>
-</dependency>
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core 
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
+		  <groupId>org.apache.httpcomponents.client5</groupId>
+		  <artifactId>httpclient5</artifactId>
+		  <scope>test</scope>
 		</dependency>
 
-		
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
-		</dependency>
-
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-		</dependency> -->
-
-<dependency>
-  <groupId>com.jpomykala</groupId>
-  <artifactId>spring-higher-order-components</artifactId>
-  <version>1.0.11</version>
-</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<dependency>
+  <groupId>com.jpomykala</groupId>
+  <artifactId>spring-higher-order-components</artifactId>
+  <version>1.0.11</version>
+</dependency>
+
+<dependency>
+  <groupId>org.apache.httpcomponents.client5</groupId>
+  <artifactId>httpclient5</artifactId>
+  <scope>test</scope>
+</dependency>
 	</dependencies>
 
 	<build>

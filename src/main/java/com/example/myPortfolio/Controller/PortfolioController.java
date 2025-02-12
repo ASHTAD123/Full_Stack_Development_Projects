@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.myPortfolio.Entity.CareerDetails;
@@ -23,8 +22,8 @@ import com.example.myPortfolio.Entity.PortfolioEntity;
 import com.example.myPortfolio.Service.PortfolioService;
 
 @RestController
-//@RequestMapping("/portfolio")
-@RequestMapping(value="/portfolio",method={RequestMethod.GET, RequestMethod.POST})
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping(value="/portfolio")//,method={RequestMethod.GET, RequestMethod.POST}
 public class PortfolioController {
 	
 	@Autowired
@@ -36,10 +35,10 @@ public class PortfolioController {
 		 List<PortfolioEntity> portfolio = portfolioService.getMyDetailsService();
 		 
 		return ResponseEntity.ok(portfolio);
-		
+		 
 	}
 	
-	@RequestMapping(value = "/addMyDetails", method = {RequestMethod.POST})
+	@PostMapping("/addMyDetails")
 	public ResponseEntity<PortfolioEntity> addMyDetails(@RequestBody PortfolioEntity portfolio){		
 		
 		PortfolioEntity portFolioEntity = portfolioService.addMyDetailsService(portfolio);
@@ -52,10 +51,8 @@ public class PortfolioController {
 	public ResponseEntity<PortfolioEntity> updateMyDetails(@PathVariable int id, @RequestBody PortfolioEntity portfolio){
 		
 		try {
-			portfolio = portfolioService.updateEmployeeService(id, portfolio);
-		
+			portfolio = portfolioService.updateEmployeePersonalDetailsService(id, portfolio);
 		} catch (Exception e) {
-		
 			e.printStackTrace();
 		}
 		
