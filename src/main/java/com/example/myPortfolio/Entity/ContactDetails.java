@@ -35,10 +35,8 @@ public class ContactDetails {
 	@JsonIgnore
 	private PortfolioEntity portfolioEntity;
 
+	 public ContactDetails() {} 
 	
-	public ContactDetails() {
-		super();
-	}
 
 	
 	public ContactDetails(Integer contactId,String name, String contactNumber, String email,

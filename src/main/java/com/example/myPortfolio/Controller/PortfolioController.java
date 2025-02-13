@@ -23,7 +23,7 @@ import com.example.myPortfolio.Service.PortfolioService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping(value="/portfolio")//,method={RequestMethod.GET, RequestMethod.POST}
+@RequestMapping(value="/portfolio")
 public class PortfolioController {
 	
 	@Autowired
@@ -61,21 +61,13 @@ public class PortfolioController {
 	}
 	
 	@PutMapping("/updateContactDetails/{name}")
-	public  ResponseEntity<List<ContactDetails>> updateMyDetails(@PathVariable String name){
+	public List<ContactDetails> updateMyDetails(
+			@PathVariable String name,
+			@RequestBody List<ContactDetails> contactDetails)  throws Exception{
 		
 		System.out.println("Update my contact details");
-		List<ContactDetails> contactDetails= null;
-		
-		try {
-			contactDetails = portfolioService.updateContactDetails(name);
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 
-		
-		return ResponseEntity.ok(contactDetails);
+		  return portfolioService.updateContactDetails(name, contactDetails);
 		
 	}
 	@DeleteMapping("/deleteMyDetails")

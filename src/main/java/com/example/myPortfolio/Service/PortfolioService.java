@@ -1,6 +1,9 @@
 package com.example.myPortfolio.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,13 +86,64 @@ public class PortfolioService {
 		return updatedPortfolioEntity;
 	}
 
-	public List<ContactDetails> updateContactDetails(String name) throws Exception {
+	public List<ContactDetails> updateContactDetails(String name,List<ContactDetails> contactDetails ) throws Exception {
+		
 
-		List<ContactDetails> updatedContactDetails = portfolioRepo.findContactDetailsByName(name);
+	    if (contactDetails == null || contactDetails.isEmpty()) 
+	    	throw new Exception("Provided contact details list is null or empty");
+	   
+	    
+		System.out.println("Named passed by user : " + name);
+	
+		//From DB
+		List<ContactDetails> savedContactDetails = contactRepo.findContactDetailsByName(name);
+		
+	
+		  if (savedContactDetails == null || savedContactDetails.isEmpty()) {
+		        throw new Exception("No contact details found for name: " + name);
+		    }else {
+		    	System.out.println(savedContactDetails);
+		    }
+		  
+		//Storing DB values to new object which is to be returned
+		List<ContactDetails> updatedContactDetails = new ArrayList<ContactDetails>();
+	
+		
+		for(ContactDetails saved : savedContactDetails) {
+			
+				ContactDetails updated = new ContactDetails();
+				
+				updated.setContactNumber(saved.getContactNumber());
+		        updated.setEmail(saved.getEmail());
+		        updated.setName(saved.getName());
+		        updated.setSocialMediaLink(saved.getSocialMediaLink());
+		        updated.setPortfolioEntity(saved.getPortfolioEntity());
 
-		System.out.println(updatedContactDetails);
+		        updatedContactDetails.add(updated);
+		}
+		
 
-		return updatedContactDetails;
+		// Update first record
+	    ContactDetails updatedContact = savedContactDetails.get(0);
+	    ContactDetails newContact = contactDetails.get(0);
+
+	    if (newContact.getContactNumber() != null) 
+	        updatedContact.setContactNumber(newContact.getContactNumber());
+
+	    if (newContact.getEmail() != null) 
+	        updatedContact.setEmail(newContact.getEmail());
+
+	    if (newContact.getName() != null) 
+	        updatedContact.setName(newContact.getName());
+
+	    if (newContact.getSocialMediaLink() != null) 
+	        updatedContact.setSocialMediaLink(newContact.getSocialMediaLink());
+
+	    // Save updated contact
+	    contactRepo.save(updatedContact);
+	
+	    
+	    return List.of(updatedContact);
 	}
 
 	public <T> void deleteDetailsAsPerEntity(PortfolioEntity entity) {
