@@ -9,7 +9,6 @@ import com.example.myPortfolio.Entity.PortfolioEntity;
 
 @Repository
 public interface PortfolioRepo extends JpaRepository<PortfolioEntity,Integer>{
-
-    
+   
 	void deletePortfolioEntityByName(String userName);
 }

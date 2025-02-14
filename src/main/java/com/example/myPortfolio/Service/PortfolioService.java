@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.myPortfolio.Entity.CareerDetails;
 import com.example.myPortfolio.Entity.ContactDetails;
 import com.example.myPortfolio.Entity.PortfolioEntity;
+import com.example.myPortfolio.Repo.CareerRepo;
 import com.example.myPortfolio.Repo.ContactRepo;
 import com.example.myPortfolio.Repo.PortfolioRepo;
 
@@ -22,6 +23,9 @@ public class PortfolioService {
 
 	@Autowired
 	private ContactRepo contactRepo;
+
+	@Autowired
+	private CareerRepo careerRepo;
 
 	public List<PortfolioEntity> getMyDetailsService() {
 
@@ -43,11 +47,9 @@ public class PortfolioService {
 			for (CareerDetails careerDetails : portfolioEntity.getCareerDetails())
 				careerDetails.setPortfolioEntity(portfolioEntity);
 
-			PortfolioEntity newPortfolioEntity = portfolioRepo.save(portfolioEntity);
+			portfolioRepo.save(portfolioEntity);
 		} else {
-
 			throw new IllegalArgumentException("getContactDetails and getCareerDetails object cannot be null ");
-
 		}
 
 		return portfolioEntity;
@@ -69,7 +71,12 @@ public class PortfolioService {
 
 			else {
 				updatedPortfolioEntity.setName(savedPortfolioEntity.getName());
-				updatedPortfolioEntity.setAge(portfolio.getAge());
+
+				if (portfolio.getAge() != null && !portfolio.getAge().isEmpty())
+					updatedPortfolioEntity.setAge(portfolio.getAge());
+				else
+					updatedPortfolioEntity.setAge(savedPortfolioEntity.getAge());
+
 				updatedPortfolioEntity.setGender(savedPortfolioEntity.getGender());
 				updatedPortfolioEntity.setContactDetails(savedPortfolioEntity.getContactDetails());
 				updatedPortfolioEntity.setCareerDetails(savedPortfolioEntity.getCareerDetails());
@@ -86,68 +93,100 @@ public class PortfolioService {
 		return updatedPortfolioEntity;
 	}
 
-	public List<ContactDetails> updateContactDetails(String name,List<ContactDetails> contactDetails ) throws Exception {
-		
+	public List<ContactDetails> updateContactDetails(String name, List<ContactDetails> contactDetails)
+			throws Exception {
 
-	    if (contactDetails == null || contactDetails.isEmpty()) 
-	    	throw new Exception("Provided contact details list is null or empty");
-	   
-	    
-		System.out.println("Named passed by user : " + name);
-	
-		//From DB
+		if (contactDetails == null || contactDetails.isEmpty())
+			throw new Exception("Provided contact details list is null or empty");
+
 		List<ContactDetails> savedContactDetails = contactRepo.findContactDetailsByName(name);
-		
-	
-		  if (savedContactDetails == null || savedContactDetails.isEmpty()) {
-		        throw new Exception("No contact details found for name: " + name);
-		    }else {
-		    	System.out.println(savedContactDetails);
-		    }
-		  
-		//Storing DB values to new object which is to be returned
-		List<ContactDetails> updatedContactDetails = new ArrayList<ContactDetails>();
-	
-		
-		for(ContactDetails saved : savedContactDetails) {
-			
-				ContactDetails updated = new ContactDetails();
-				
-				updated.setContactNumber(saved.getContactNumber());
-		        updated.setEmail(saved.getEmail());
-		        updated.setName(saved.getName());
-		        updated.setSocialMediaLink(saved.getSocialMediaLink());
-		        updated.setPortfolioEntity(saved.getPortfolioEntity());
 
-		        updatedContactDetails.add(updated);
+		if (savedContactDetails == null || savedContactDetails.isEmpty()) {
+			throw new Exception("No contact details found for name : " + name);
+		} else {
+			System.out.println(savedContactDetails);
 		}
-		
+
+		ContactDetails updatedContact = savedContactDetails.get(0);
+		ContactDetails newContact = contactDetails.get(0);
+
+		if (newContact.getContactNumber() != null && !newContact.getContactNumber().isEmpty())
+			updatedContact.setContactNumber(newContact.getContactNumber());
+		else
+			updatedContact.setContactNumber(savedContactDetails.get(0).getContactNumber());
+
+		if (newContact.getEmail() != null && !newContact.getEmail().isEmpty())
+			updatedContact.setEmail(newContact.getEmail());
+		else
+			updatedContact.setEmail(savedContactDetails.get(0).getEmail());
+
+		if (newContact.getName() != null && !newContact.getName().isEmpty())
+			updatedContact.setName(newContact.getName());
+		else
+			updatedContact.setName(savedContactDetails.get(0).getName());
+
+		if (newContact.getSocialMediaLink() != null && !newContact.getSocialMediaLink().isEmpty())
+			updatedContact.setSocialMediaLink(newContact.getSocialMediaLink());
+		else
+			updatedContact.setSocialMediaLink(savedContactDetails.get(0).getSocialMediaLink());
+
+		// Spring Data JPA automatically generates an UPDATE query when saving an
+		// existing entity.
+		// so no need of save()
+
+		return List.of(updatedContact);
+	}
+
+	public List<CareerDetails> updateCareerDetails(String name, List<CareerDetails> careerDetails) throws Exception {
+
+		if (careerDetails == null || careerDetails.isEmpty())
+			throw new Exception("Provided Career Details list is null or empty");
+
+		System.out.println("Named passed by user : " + name);
+
+		// From DB
+		List<CareerDetails> savedCareerDetails = careerRepo.findCareerDetailsByName(name);
+
+		if (savedCareerDetails == null || savedCareerDetails.isEmpty()) {
+			throw new Exception("No career details found for name: " + name);
+		} else {
+			System.out.println(savedCareerDetails);
+		}
+
+		// Storing DB values to new object which is to be returned
+		List<CareerDetails> updatedCareerDetails = new ArrayList<CareerDetails>();
 
 		// Update first record
-	    ContactDetails updatedContact = savedContactDetails.get(0);
-	    ContactDetails newContact = contactDetails.get(0);
+		CareerDetails updatedCareer = savedCareerDetails.get(0);
+		CareerDetails newCareer = careerDetails.get(0);
 
-	    if (newContact.getContactNumber() != null) 
-	        updatedContact.setContactNumber(newContact.getContactNumber());
+		if (newCareer.getCareeraim() != null && !newCareer.getCareeraim().isEmpty())
+			updatedCareer.setCareeraim(newCareer.getCareeraim());
+		else
+			updatedCareer.setCareeraim(savedCareerDetails.get(0).getCareeraim());
 
-	    if (newContact.getEmail() != null) 
-	        updatedContact.setEmail(newContact.getEmail());
+		if (newCareer.getPassion() != null && !newCareer.getPassion().isEmpty())
+			updatedCareer.setPassion(newCareer.getPassion());
+		else
+			updatedCareer.setPassion(savedCareerDetails.get(0).getPassion());
 
-	    if (newContact.getName() != null) 
-	        updatedContact.setName(newContact.getName());
+		if (newCareer.getPreviouscompany() != null && !newCareer.getPreviouscompany().isEmpty())
+			updatedCareer.setPreviouscompany(newCareer.getPreviouscompany());
+		else
+			updatedCareer.setPreviouscompany(savedCareerDetails.get(0).getPreviouscompany());
 
-	    if (newContact.getSocialMediaLink() != null) 
-	        updatedContact.setSocialMediaLink(newContact.getSocialMediaLink());
+		if (newCareer.getQualification() != null && !newCareer.getQualification().isEmpty())
+			updatedCareer.setQualification(newCareer.getQualification());
+		else
+			updatedCareer.setQualification(savedCareerDetails.get(0).getQualification());
 
-	    // Save updated contact
-	    contactRepo.save(updatedContact);
-	
-	    
-	    return List.of(updatedContact);
+		if (newCareer.getSkills() != null && !newCareer.getSkills().isEmpty())
+			updatedCareer.setSkills(newCareer.getSkills());
+		else
+			updatedCareer.setSkills(savedCareerDetails.get(0).getSkills());
+
+		return List.of(updatedCareer);
+
 	}
 
-	public <T> void deleteDetailsAsPerEntity(PortfolioEntity entity) {
-
-		portfolioRepo.delete(null);
-	}
 }

@@ -30,50 +30,40 @@ public class PortfolioController {
 	private PortfolioService portfolioService;
 	
 	@GetMapping("/details")
-	public ResponseEntity<List<PortfolioEntity>> getMyDetails(){
-		
-		 List<PortfolioEntity> portfolio = portfolioService.getMyDetailsService();
-		 
-		return ResponseEntity.ok(portfolio);
-		 
+	public ResponseEntity<List<PortfolioEntity>> getMyDetails(){	
+
+		return ResponseEntity.ok(portfolioService.getMyDetailsService());	 
 	}
 	
 	@PostMapping("/addMyDetails")
 	public ResponseEntity<PortfolioEntity> addMyDetails(@RequestBody PortfolioEntity portfolio){		
-		
-		PortfolioEntity portFolioEntity = portfolioService.addMyDetailsService(portfolio);
 
-		return new ResponseEntity<>(portFolioEntity,HttpStatus.CREATED);
+		return ResponseEntity.ok(portfolioService.addMyDetailsService(portfolio));
 		
 	}
 
 	@PutMapping("/updateMyDetails/{id}")
-	public ResponseEntity<PortfolioEntity> updateMyDetails(@PathVariable int id, @RequestBody PortfolioEntity portfolio){
+	public ResponseEntity<PortfolioEntity> updateMyDetails(@PathVariable int id, @RequestBody PortfolioEntity portfolio) throws Exception{
 		
 		try {
-			portfolio = portfolioService.updateEmployeePersonalDetailsService(id, portfolio);
+			return  ResponseEntity.ok(portfolioService.updateEmployeePersonalDetailsService(id, portfolio));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return ResponseEntity.ok(portfolio);
-		
+		return  null;
 	}
 	
 	@PutMapping("/updateContactDetails/{name}")
-	public List<ContactDetails> updateMyDetails(
-			@PathVariable String name,
-			@RequestBody List<ContactDetails> contactDetails)  throws Exception{
-		
-		System.out.println("Update my contact details");
+	public List<ContactDetails> updateMyDetails(@PathVariable String name,@RequestBody List<ContactDetails> contactDetails)  throws Exception{	
+			
+		 return portfolioService.updateContactDetails(name, contactDetails);	
+	}
+	
+	@PutMapping("/updateCareerDetails/{name}")
+	public List<CareerDetails> updateMyCareerDetails(@PathVariable String name,@RequestBody List<CareerDetails> careerDetails)  throws Exception{
+	
+		return portfolioService.updateCareerDetails(name, careerDetails);
+	}
 
-		  return portfolioService.updateContactDetails(name, contactDetails);
-		
-	}
-	@DeleteMapping("/deleteMyDetails")
-	public void removeDetails(PortfolioEntity entity){		
-		
-		//Optional<PortfolioEntity> entity = this.portfolioService.fi
-		
-	}
 }
