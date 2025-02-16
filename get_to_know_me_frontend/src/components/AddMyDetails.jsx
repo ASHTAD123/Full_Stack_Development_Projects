@@ -36,14 +36,7 @@ const AddMyDetailsForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     saveDetails(myData)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   return (

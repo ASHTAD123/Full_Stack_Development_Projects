@@ -1,14 +1,15 @@
 import axios from "axios";
 
-export const REST_API_BASED_URL = "http://localhost:8080/portfolio/details";
-export const REST_API_BASED_POST_URL ="http://localhost:8080/portfolio/addMyDetails";
-export const REST_API_BASED_UPDATE_PERSONAL_DETAILS_URL="http://localhost:8080/portfolio/updateMyDetails/";
+export const GET_URL = "http://localhost:8080/portfolio/details";
+export const POST_URL = "http://localhost:8080/portfolio/addMyDetails";
+export const UPDATE_PERSONAL_DETAILS_URL ="http://localhost:8080/portfolio/updateMyDetails/";
+export const UPDATE_CONTACT_DETAILS_URL ="http://localhost:8080/portfolio/updateContactDetails/";
 
-export const listDetails = () => axios.get(REST_API_BASED_URL);
+export const listDetails = () => axios.get(GET_URL);
 
-export const saveDetails = (details) =>{
+export const saveDetails = (details) => {
   axios
-    .post(REST_API_BASED_POST_URL, details, {
+    .post(POST_URL, details, {
       headers: {
         Authorization: "Bearer your-token",
         "Content-Type": "application/json",
@@ -23,32 +24,55 @@ export const saveDetails = (details) =>{
       }
       console.log(error.config);
     });
-}
+};
 
-export const updateMyDetails =(id,updatedData)=>{
+export const updateMyDetails = (id, updatedData) => {
+  console.log(`${UPDATE_PERSONAL_DETAILS_URL}` + `${id}`);
 
-  console.log(`${REST_API_BASED_UPDATE_PERSONAL_DETAILS_URL}`+`${id}`);
-  
-  try{
-      axios.put(`${REST_API_BASED_UPDATE_PERSONAL_DETAILS_URL}`+`${id}`,updatedData,{
-        headers: {
-          Authorization: "Bearer your-token",
-          "Content-Type": "application/json",
-        },
-      })   
-  } 
-    catch (error) {
-      // Handle error properly
-      if (error.response) {
-        console.error("Error response:", error.response.status);
-        throw new Error(`Error: ${error.response.status}`); // Throw error for higher-level handling
-      } else if (error.request) {
-        console.error("Error request:", error.request);
-        throw new Error('No response received');
-      } else {
-        console.error("Error message:", error.message);
-        throw new Error(`Unexpected error: ${error.message}`);
-      }
+  try {
+    axios.put(`${UPDATE_PERSONAL_DETAILS_URL}` + `${id}`, updatedData, {
+      headers: {
+        Authorization: "Bearer your-token",
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    if (error.response) {
+      console.error("Error response:", error.response.status);
+      throw new Error(`Error: ${error.response.status}`);
+    } else if (error.request) {
+      console.error("Error request:", error.request);
+      throw new Error("No response received");
+    } else {
+      console.error("Error message:", error.message);
+      throw new Error(`Unexpected error: ${error.message}`);
     }
+  }
+};
 
-}
+export const updateContactDetails = (username, updatedData) => {
+ 
+  console.log("updateContactDetails");
+  console.log(updatedData);
+
+  console.log("URL : " + `${UPDATE_CONTACT_DETAILS_URL}` + `${username}`);
+
+  try {
+    axios.put(`${UPDATE_CONTACT_DETAILS_URL}` + `${username}`, updatedData, {
+      headers: {
+        Authorization: "Bearer your-token",
+        "Content-Type": "application/json",
+      },
+    });
+  }  catch (error) {
+    if (error.response) {
+      console.error("Error response:", error.response.status);
+      throw new Error(`Error: ${error.response.status}`);
+    } else if (error.request) {
+      console.error("Error request:", error.request);
+      throw new Error("No response received");
+    } else {
+      console.error("Error message:", error.message);
+      throw new Error(`Unexpected error: ${error.message}`);
+  }
+}}

@@ -10,7 +10,6 @@ const listMyDetails = () => {
     listDetails()
       .then((response) => {
         setDetails(response.data);
-    
       })
       .catch((Err) =>  console.error(Err));
   },[]
