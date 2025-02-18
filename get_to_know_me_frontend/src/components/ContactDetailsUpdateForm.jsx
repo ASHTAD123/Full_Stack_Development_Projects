@@ -4,14 +4,13 @@ import { updateContactDetails } from "../services/myService";
 
 const ContactDetailsUpdateForm = () => {
   
-  const [contactDetails, setContactDetails] = useState([]);;
+  const [contactDetails, setContactDetails] = useState([""]);
   const [contactName, setContactName] = useState("");
 
   const handleContactDetailChange = (e) => {
     const { name, value } = e.target;
     setContactDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +43,7 @@ const ContactDetailsUpdateForm = () => {
           <input
             type="text"
             name="name"
-            value={contactDetails.name}
+            value={contactDetails.name || " "}
             onChange={handleContactDetailChange}
           />
         </div>
@@ -55,7 +54,7 @@ const ContactDetailsUpdateForm = () => {
           <input
             type="number"
             name="contactNumber"
-            value={contactDetails.contactNumber}
+            value={contactDetails.contactNumber || " "}
             onChange={handleContactDetailChange}
           />
         </div>
@@ -66,7 +65,7 @@ const ContactDetailsUpdateForm = () => {
           <input
             type="email"
             name="contactEmail"
-            value={contactDetails.contactEmail}
+            value={contactDetails.contactEmail || " "}
             onChange={handleContactDetailChange}
           />
         </div>
@@ -77,14 +76,14 @@ const ContactDetailsUpdateForm = () => {
           <input
             type="text"
             name="socialMediaLink"
-            value={contactDetails.socialMediaLink}
+            value={contactDetails.socialMediaLink || " "}
             onChange={handleContactDetailChange}
           />
         </div>
 
         <br />
         <button type="submit" onClick={handleSubmit}>
-          Submit
+        Update
         </button>
     
       </form>
